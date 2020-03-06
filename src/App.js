@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React     from 'react'
+// import { Route, Switch }        from 'react-router-dom'
+// import { withRouter }           from 'react-router'
+import axios                    from 'axios'
+
+import store                    from './store/store'
+import Home                     from './containers/home/index'
+
 import './App.css';
 
+axios.defaults.baseURL = window.location.origin;
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.headers.common['X-CSRF-Token']     = window.csrfToken;
+axios.defaults.headers.post['Content-Type']       = 'application/x-www-form-urlencoded';
+axios.defaults.headers.get['Content-Type']        = 'application/x-www-form-urlencoded';
+delete window.csrfToken;
+
+
+
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div style={{marginTop: "100px", marginBottom:"100px"}} data-env="">
+            <Home />
+        </div>
+    );
 }
 
 export default App;
