@@ -3,7 +3,7 @@ import React     from 'react'
 // import { withRouter }           from 'react-router'
 import axios                    from 'axios'
 
-import store                    from './store/store'
+// import store                    from './store/store'
 import Home                     from './containers/home/index'
 
 import './App.css';

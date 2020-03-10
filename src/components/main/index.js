@@ -7,44 +7,32 @@ import Subscriptions from '../subscriptions/index'
 import Photosales from '../photosales/index'
 import Payments from '../payments/index'
 import Users from '../users/index'
-import SectionHeader from '../SectionHeader/index'
 
 
 
 const main = () => {
     return (
         <Container>
-            <div id="details">
-                <SectionHeader title="My details" />
-                <Details />
-            </div>
 
-            <div id="subscription" style={{marginTop: "85px"}}>
-                <SectionHeader title="My subscription" />
-                <Subscriptions />
-            </div>
+            <Details />
 
-            <div id="photos" style={{marginTop: "85px"}}>
-                <SectionHeader title="Purchase sales" />
-                <Photosales />
-            </div>
+            <Subscriptions />
 
-            <div id="payment" style={{marginTop: "85px"}}>
-                <SectionHeader title="My payment details" />
-                <Payments />
-            </div>
+            <Photosales />
 
-            <div id="users" style={{marginTop: "85px"}}>
-                <SectionHeader title="My users" />
-                <Users />
-            </div>
+            <Payments />
+
+            <Users />
+
         </Container>
     )
 }
 
 
+
+
+// Rule down left hand side
 const Container = styled.div`
-    
     &:before {
         content:"";
         position:absolute;

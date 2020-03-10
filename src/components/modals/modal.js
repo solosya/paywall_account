@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import styled, {css} from 'styled-components';
 
 const modal = (props) => {
@@ -9,21 +10,24 @@ const modal = (props) => {
     }
     
     return (
+        ReactDOM.createPortal(
+            <Modal id={props.name} data-dom="Top"> 
+                <Window id="dialog" {...props}  data-dom="window"> 
+                    <Container  data-dom="container"> 
+                        {header && <Header  data-dom="header"> 
+                            <Title>{props.title}</Title> 
+                            <Close onClick={props.closeHandler}></Close> 
+                        </Header>
+                        } 
+                        <ContentWindow id="dialogContent"  data-dom="contentWindow">
+                            { props.children }
+                        </ContentWindow> 
+                    </Container> 
+                </Window> 
+            </Modal>, 
+            document.getElementById('modal')
+        )
 
-        <Modal id={props.name} data-dom="Top"> 
-            <Window id="dialog" {...props}  data-dom="window"> 
-                <Container  data-dom="container"> 
-                    {header && <Header  data-dom="header"> 
-                        <Title>{props.title}</Title> 
-                        <Close onClick={props.closeHandler}></Close> 
-                    </Header>
-                    } 
-                    <ContentWindow id="dialogContent"  data-dom="contentWindow">
-                        {props.children()}
-                    </ContentWindow> 
-                </Container> 
-            </Window> 
-        </Modal>
 
     )
 }
@@ -33,6 +37,7 @@ const Modal = styled.div`
     display:flex;
     position:fixed;
     top:0;
+    left:0;
     width:100%;
     height:100%;
     z-index:1001;

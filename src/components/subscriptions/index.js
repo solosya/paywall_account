@@ -1,13 +1,17 @@
 import React from 'react'
+import styled from 'styled-components'
+
 import Divider from '../layout/divider'
 import FlexH from '../layout/FlexH'
+import SectionHeader from '../SectionHeader/index'
 
-import styled from 'styled-components'
 
 
  const subscriptions = () => {
     return (
-        <div>
+        <div id="subscription" style={{marginTop: "85px"}}>
+            <SectionHeader title="My subscription" />
+
             <PlanName>Plan name goes here</PlanName>
             <Sitename>Child site name goes here</Sitename>
             <Price>$15</Price>

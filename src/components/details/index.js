@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
+import styled from 'styled-components'
+
+
 import Divider from '../layout/divider'
 import TextInput from '../Form/TextInput'
+import SectionHeader from '../SectionHeader/index'
 
-import styled from 'styled-components'
 
 class Details extends Component{
 
@@ -20,6 +23,7 @@ class Details extends Component{
             password: false
         }
     }
+    
     handleClick = (e) => {
         const elem = e.target;
         const form = this.state.form;
@@ -61,9 +65,10 @@ class Details extends Component{
         
 
         return (
-            <>
+            <div id="details">
 
 
+                <SectionHeader title="My details" />
 
 
                 <Formik 
@@ -90,7 +95,6 @@ class Details extends Component{
                     }}
                     onReset={() => {
                         this.disableForm();
-                        console.log("blurred");
                     }}
                 >
 
@@ -112,9 +116,6 @@ class Details extends Component{
                             }
 
                         </Buttons>
-
-
-
 
                         <Form>
                             <TextInput 
@@ -172,7 +173,7 @@ class Details extends Component{
                         </>
                     )}
                 </Formik>
-            </>
+            </div>
         )
     }
 }

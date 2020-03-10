@@ -26,7 +26,11 @@ const Flex = styled.div`
     `}
     ${props => props.disabled && css`
         /* background: #f4f4f4; */
+    `}
+    ${props => props.margin && css`
+        margin: ${props.margin};
     `}    
+
  
 `
 
