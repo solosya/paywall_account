@@ -9,6 +9,8 @@ import TextInput from '../Form/TextInput'
 
 class AddUserForm extends Component {
 
+
+
     render() {
         return (
             <Formik 
@@ -29,10 +31,10 @@ class AddUserForm extends Component {
                         .required('Required'),
                 })} 
                 onSubmit={(values, { setSubmitting}) => {
-                    alert(JSON.stringify(values, null, 2));
+                    this.props.addHandler(values);
                 }}
                 onReset={() => {
-                    this.disableForm();
+                    this.props.closeHandler();
                 }}
             >
 
@@ -57,6 +59,9 @@ class AddUserForm extends Component {
                             type="email" 
                         />
 
+
+                        <button type="submit" onClick={formik.handleSubmit}>Save</button>
+                        <button type="submit" onClick={formik.handleReset}>Cancel</button>
                     </Form>
                 )}
             </Formik>

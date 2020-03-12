@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import styled from 'styled-components'
-
+import styled, {css}  from 'styled-components'
 import User from './user'
 import Divider from '../layout/divider'
 import Modal from '../modals/modal'
@@ -9,43 +8,50 @@ import AddUser from './adduser'
 import AddUserForm from './addUserForm'
 
  class Users extends Component {
+    constructor() {
+        super();
     
-    state = {
-        deleteUser: false,
-        selectedUser: null,
-        addUserForm: false,
-        searchUserForm: false,
-        users: [
-            {
-                id: 0,
-                firstname: "Andrew",
-                lastname: "Matthews",
-                email: "name@email.co.nz"
-            },
-            {
-                id: 1,
-                firstname: "Rebecca",
-                lastname: "Dawson",
-                email: "name@email.co.nz"
-            },
-            {
-                id: 2,
-                firstname: "Amy",
-                lastname: "McPherson",
-                email: "name@email.co.nz"
-            },
-            {
-                id: 3,
-                firstname: "Lucy",
-                lastname: "George",
-                email: "name@email.co.nz"
-            }
-        ]
-    }
+        this.searchInput = React.createRef();
+
+        this.state = {
+            deleteUser: false,
+            selectedUser: null,
+            addUserForm: false,
+            searchUserForm: false,
+            users: [
+                {
+                    id: 0,
+                    firstname: "Andrew",
+                    lastname: "Matthews",
+                    email: "name@email.co.nz"
+                },
+                {
+                    id: 1,
+                    firstname: "Rebecca",
+                    lastname: "Dawson",
+                    email: "name@email.co.nz"
+                },
+                {
+                    id: 2,
+                    firstname: "Amy",
+                    lastname: "McPherson",
+                    email: "name@email.co.nz"
+                },
+                {
+                    id: 3,
+                    firstname: "Lucy",
+                    lastname: "George",
+                    email: "name@email.co.nz"
+                }
+            ]
+        }
+      }
+    
+
 
     deleteUserModal = (e, userKey) => {
         e.preventDefault();
-        const user = this.state.users[userKey];
+        // const user = this.state.users[userKey];
         this.setState({
             deleteUser: true,
             selectedUser: userKey
@@ -57,7 +63,6 @@ import AddUserForm from './addUserForm'
             deleteUser: false,
             selectedUser: null
         });
-
     }
 
     deleteUser= () => {
@@ -71,20 +76,35 @@ import AddUserForm from './addUserForm'
         });
     }
 
-    searchUserForm = () => {
+    openSearch = () => {
+        
         this.setState({
-            searchUserForm: true
+            searchUserForm: !this.state.searchUserForm
+        }, ()=> {
+            if (this.state.searchUserForm === true) {
+                this.searchInput.current.focus();
+            }
         })
     }
 
     addUserForm = () => {
         this.setState({
-            addUserForm: true
+            addUserForm: !this.state.addUserForm
         })
     }
 
+    performSearch = (e) => {
+        e.preventDefault();
+        alert('perfoming search');
+    }
+
+    addUser = (values) => {
+        alert('creating a new user');
+        this.addUserForm();
+    }
 
     render() {
+        this.searchInput = React.createRef();
 
         const userDelete = 
             <Modal closeHandler={this.closeUserDelete}>
@@ -97,14 +117,25 @@ import AddUserForm from './addUserForm'
                 }
             </Modal>
 
-        const addUserForm = <AddUserForm />
+        const addUserForm = <AddUserForm addHandler={this.addUser} closeHandler={this.addUserForm}/>
 
         return (
             <div id="users" style={{marginTop: "85px"}}>
 
                 <SectionHeader title="My users">
                     <AddUserContainer>
-                        <SearchIcon />
+                        <SearchIcon onClick={this.openSearch} />
+                        {/* {this.state.searchUserForm &&  */}
+                            <Form onSubmit={this.performSearch}>
+                                <SearchField 
+                                    type="search" 
+                                    results="5" 
+                                    ref={this.searchInput} 
+                                    active={this.state.searchUserForm}
+                                    placeholder="Seach users..."
+                                />
+                            </Form>
+                        {/* } */}
                         <AddUser handler={this.addUserForm} />
                     </AddUserContainer>
                 </SectionHeader>
@@ -127,7 +158,32 @@ import AddUserForm from './addUserForm'
     }
 }
 
+const Form = styled.form`
+    height:28px;
+`
 
+const SearchField = styled.input`
+    position: absolute;
+    height: 28px;
+    margin-left: 30px;
+    width: 0;
+    border: none;
+    background-color: rgba(200,200,200,.2);
+    opacity:0;
+    font-size: 16px;
+    border-radius: 15px;
+    padding:0 10px 0 20px;
+    &:focus {
+        outline: none;
+    }
+
+    ${props => props.active && css`
+        opacity: 1;
+        width: 350px;
+    `}
+
+    transition: all 200ms ease;
+`
 
 
 const AddUserContainer = styled.div`

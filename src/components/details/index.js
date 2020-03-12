@@ -10,19 +10,24 @@ import SectionHeader from '../SectionHeader/index'
 
 
 class Details extends Component{
+    
+    constructor() {
+        super();
+        this.formInput = React.createRef();
 
-    // form state is for visual representation of focus
-    state = {
-        disabled: true,
-        form: {
-            firstName: false,
-            lastName: false,
-            email: false,
-            contact: false,
-            organization: false,
-            password: false
+        this.state = {
+            disabled: true,
+            form: {
+                firstName: false,
+                lastName: false,
+                email: false,
+                contact: false,
+                organization: false,
+                password: false
+            }
         }
     }
+
     
     handleClick = (e) => {
         const elem = e.target;
@@ -47,8 +52,14 @@ class Details extends Component{
         }
         if (current === true) {
             form['firstName'] = true;
-        }
-        this.setState({disabled: !current, form});
+            
+        } 
+        
+        this.setState({disabled: !current, form}, () => {
+            if (current === true) {
+                this.formInput.current.focus();
+            }
+        });
     }
 
     disableForm = () => {
@@ -124,6 +135,7 @@ class Details extends Component{
                                 name="firstName" 
                                 disabled={this.state.disabled} 
                                 active={this.state.form.firstName} 
+                                ref={this.formInput}
                             />
                             <Divider />
                             <TextInput 

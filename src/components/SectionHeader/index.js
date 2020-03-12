@@ -23,7 +23,6 @@ const Title = styled.h1`
     color: #343434;
     font-weight:300;
     padding-bottom:15px;
-
 `
 
 export default SectionHeader;

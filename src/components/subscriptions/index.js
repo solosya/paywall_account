@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import styled from 'styled-components'
 
 import Divider from '../layout/divider'
@@ -7,52 +7,119 @@ import SectionHeader from '../SectionHeader/index'
 
 
 
- const subscriptions = () => {
-    return (
-        <div id="subscription" style={{marginTop: "85px"}}>
-            <SectionHeader title="My subscription" />
+ class Subscriptions extends Component {
 
-            <PlanName>Plan name goes here</PlanName>
-            <Sitename>Child site name goes here</Sitename>
-            <Price>$15</Price>
-            <List>
-                <Item>Feature lorem ipsum florio serwioth </Item>
-                <Item>Feature lorem ipsum florio serwioth </Item>
-                <Item>Feature lorem ipsum florio serwioth </Item>
-                <Item>Feature lorem ipsum florio serwioth </Item>
-            </List>
-            <Divider />
-            <FlexH align="center" padding="20px 0">
-                <p style={{width: "40%"}}>Articles remaining</p>
-                <p>8 articles</p>
-                <Purchase>Buy more</Purchase>
-            </FlexH>
+    state = {
+        plan: {
+            "name": "Awesome Plan",
+            "price": "$15",
+            "features": [
+                "Works well",
+                "Never fails",
+                "Sometimes fails",
+                "She'll be right"
+            ],
+            "recentPurchase": "30 October 2019"
+        }
+    }
 
-            <Divider />
-            <FlexH align="center"  padding="20px 0">
-                <p style={{width: "40%"}}>Most recent purchase</p>
-                <p>30 October 2019</p>
-            </FlexH>
+    cancelSubscription = (e) => {
+        e.preventDefault();
+        alert('canceling subscription');
+    }
 
-            <Divider />
-        </div>
-    )
+
+    render() {
+
+
+        return (
+            <div id="subscription" style={{marginTop: "85px", position: 'relative'}}>
+                <SectionHeader title="My subscription">
+                    <CancelContainer>
+                        <Cancel onClick={this.cancelSubscription} href="/cancel">Cancel Subscription</Cancel>
+                    </CancelContainer>
+                </SectionHeader>
+            
+
+                <div style={{position: 'relative'}}>
+
+                    <PlanName>{this.state.plan.name}</PlanName>
+                    <PlanChange href="/change">Change Plan</PlanChange>
+                    <Sitename>Child site name goes here</Sitename>
+                    <Price>{this.state.plan.price}</Price>
+                    <List>
+                        {this.state.plan.features.map((feature) => {
+                            return <Item>{feature}</Item>
+                        })}
+                    </List>
+                    <Divider />
+                    <FlexH align="center" padding="20px 0">
+                        <p style={{width: "40%"}}>Articles remaining</p>
+                        <p>8 articles</p>
+                        <Purchase>Buy more</Purchase>
+                    </FlexH>
+        
+                    <Divider />
+                    <FlexH align="center"  padding="20px 0">
+                        <p style={{width: "40%"}}>Most recent purchase</p>
+                        <p>{this.state.plan.recentPurchase}</p>
+                    </FlexH>
+        
+                    <Divider />
+                </div>
+            </div>
+        )
+    }
+    
 }
 
+
+const PlanChange = styled.a`
+    position:absolute;
+    right:0;
+    top:0;
+    color: #4573cd;
+    font-size: ${props => {
+        return `${ 16 / props.theme.baseFontSize}rem`;
+    }};
+`
+
+const CancelContainer = styled.div`
+    display:flex;
+    flex-grow:2;
+    align-items: center;
+    justify-content: flex-end;
+`
+
+
+const Cancel = styled.a`
+    color: #4573cd;
+    font-size: ${props => {
+        return `${ 13 / props.theme.baseFontSize}rem`;
+    }};
+    text-decoration:none;
+`
+
 const PlanName = styled.h1`
-    font-size:18px;
+    font-size: ${props => {
+        return `${ 18 / props.theme.baseFontSize}rem`;
+    }};
     font-weight:500;
     color: #2b2a2a;
 `
 
 const Sitename = styled.p`
-    font-size:12px;
+    font-size: ${props => {
+        return `${ 12 / props.theme.baseFontSize}rem`;
+    }};
     text-transform: uppercase;
     margin-top:10px;
     margin-bottom:15px;
 `
 const Price = styled.div`
-    font-size:16px;
+    font-size: ${props => {
+        return `${ 16 / props.theme.baseFontSize}rem`;
+    }};
     color:#444444;
     font-weight:500;
     margin-bottom:15px;
@@ -64,7 +131,9 @@ const List = styled.ul`
 `
 
 const Item = styled.li`
-    font-size:13px;
+    font-size: ${props => {
+        return `${ 13 / props.theme.baseFontSize}rem`;
+    }};
     font-weight:300;
     margin-bottom:10px;
 `
@@ -76,7 +145,9 @@ const Purchase = styled.button`
     border-radius: 10px;
     border: none;
     color: white;
-    font-size: 16px;
+    font-size: ${props => {
+        return `${ 16 / props.theme.baseFontSize}rem`;
+    }};
     height:44px;
     position: absolute;
     right: 15px;
@@ -84,4 +155,4 @@ const Purchase = styled.button`
     cursor:pointer;
 `
 
-export default subscriptions;
+export default Subscriptions;
